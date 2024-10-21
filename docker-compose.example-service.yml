@@ -1,0 +1,18 @@
+---
+services:
+  cyberchef:
+    container_name: cyberchef
+    image: ghcr.io/gchq/cyberchef
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - caddy
+    labels:
+      caddy_0: "cyberchef.{env.MAIN_DOMAIN}"
+      caddy_0.reverse_proxy: "{{ upstreams 80 }}"
+
+networks:
+  traefik:
+    name: homeserver
+    external: true

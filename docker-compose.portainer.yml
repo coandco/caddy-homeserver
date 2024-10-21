@@ -1,0 +1,46 @@
+---
+services:
+  portainer:
+    # This is the last version of open-source Portainer before they started really
+    # getting obnoxious with the ads to upgrade to their paid version.  I'm on the
+    # lookout for a better docker management tool, but haven't had time to really
+    # search yet.
+    image: portainer/portainer-ce:2.16.2
+    command: -H unix:///var/run/docker.sock
+    # We expose the HTTP port on your machine so you can use it to bootstrap.
+    # Once you have caddy up and going, you'll primarily access it via domain name.
+    ports:
+      - 9000:9000
+    volumes:
+      # Portainer needs to be able to talk to the Docker daemon to do its stuff
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    container_name: portainer
+    restart: always
+    # It's important that all of the containers are on the same Docker bridge network.
+    # By default, each separate docker-compose.yml file will make its own distinct network.
+    networks:
+      - caddy
+    labels:
+      # This translates to the following Caddyfile fragment:
+      # portainer.l.harebrained.dev {
+      #     import local_only
+      #     reverse_proxy "{{ upstreams 9000 }}"
+      # }
+      #
+      # The caddy-docker-proxy plugin will replace {{ upstreams 9000 }} with the actual 
+      # internal ip of this docker container, so it will end up looking like this:
+      # reverse_proxy 172.16.5.4:9000
+      caddy: "portainer.{env.LOCAL_DOMAIN}"
+      # Disabling the local_only snippet for now until we get the base stuff up and running
+      # caddy.import: local_only
+      caddy.reverse_proxy: "{{ upstreams 9000 }}"
+
+# This defines the bridge network that everything uses
+networks:
+  caddy:
+    name: homeserver
+
+# Store Portainer's data in a volume to ease bootstrap
+volumes:
+  portainer_data:
