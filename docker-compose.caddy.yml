@@ -7,13 +7,17 @@ services:
     # --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
     # --with github.com/caddy-dns/googleclouddns \
     # --with github.com/mholt/caddy-l4
-    image: ghcr.io/coandco/custom-caddy:ryan-v1
+    image: ghcr.io/coandco/custom-caddy:gcloud-v1
     command: ["caddy", "docker-proxy"]
     # Fill these in with your details so 
     environment:
+      # Let's Encrypt uses your email as part of certificate registration
       EMAIL: 
+      # The Google Cloud project ID
       GCP_PROJECT: 
+      # If you registered *.main.example.com, this should be main.example.com
       MAIN_DOMAIN: 
+      # If you registered *.local.example.com, this should be local.example.com
       LOCAL_DOMAIN: 
       CADDY_INGRESS_NETWORKS: homeserver
     volumes:
