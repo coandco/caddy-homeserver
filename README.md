@@ -15,3 +15,7 @@ Installation steps:
 6. See if you can access Portainer through Caddy via https://portainer.$LOCAL_DOMAIN (from the env
    vars you filled out in step 4).
 7. If it works, try adding another stack using the template found in `docker-compose.example-service.yml`.
+
+If you need to build Caddy with different plugins (perhaps because you use a different DNS provider),
+just edit the Dockerfile to add in the plugins you want, then run `docker build . -t my_caddy` and
+change your docker-compose.caddy.yml to have `image: my_caddy` instead of the one that's the currently.
