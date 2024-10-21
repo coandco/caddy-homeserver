@@ -36,6 +36,10 @@ services:
       - host.docker.internal:host-gateway
 
 
+  # We're using a separate container for config, as that way we can edit our config without
+  # restarting the main caddy container and interrupting all existing connections.  By using
+  # a separate container, edits below will trigger a hot reload and update the config while
+  # keeping existing connections intact.
   caddy-config:
     restart: unless-stopped
     # This image is doing nothing -- it's literally just a place for docker labels to exist
