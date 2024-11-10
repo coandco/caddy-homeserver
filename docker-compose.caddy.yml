@@ -7,7 +7,7 @@ services:
     # --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
     # --with github.com/caddy-dns/googleclouddns \
     # --with github.com/mholt/caddy-l4
-    image: ghcr.io/coandco/custom-caddy:gcloud-v1
+    image: ghcr.io/coandco/custom-caddy:gcloud-v2
     command: ["caddy", "docker-proxy"]
     # Fill these in with your details so 
     environment:
