@@ -18,4 +18,4 @@ Installation steps:
 
 If you need to build Caddy with different plugins (perhaps because you use a different DNS provider),
 just edit the Dockerfile to add in the plugins you want, then run `docker build . -t my_caddy` and
-change your docker-compose.caddy.yml to have `image: my_caddy` instead of the one that's the currently.
+change your docker-compose.caddy.yml to have `image: my_caddy` instead of the one that's there currently.
