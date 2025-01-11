@@ -13,6 +13,6 @@ services:
       caddy_0.reverse_proxy: "{{ upstreams 80 }}"
 
 networks:
-  traefik:
+  caddy:
     name: homeserver
     external: true
