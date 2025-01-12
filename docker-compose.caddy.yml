@@ -15,6 +15,9 @@ services:
       EMAIL: 
       # The Google Cloud project ID
       GCP_PROJECT: 
+      # Make a service account and download the service account file to
+      # /volume1/docker/caddy/config/filename.json, then fill this with /config/caddy/filename.json
+      GOOGLE_APPLICATION_CREDENTIALS:
       # If you registered *.main.example.com, this should be main.example.com
       MAIN_DOMAIN: 
       # If you registered *.local.example.com, this should be local.example.com
